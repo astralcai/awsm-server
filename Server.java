@@ -65,7 +65,7 @@ class ClientHandler extends Thread {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
 
             // listen for client input
-            if ((input = in.readLine()) != null) {
+            while ((input = in.readLine()) != null) {
                 System.out.println("Received: " + input);
                 String[] tokens = input.split(" ");
                 if (tokens[1].equals("new")) {
@@ -75,6 +75,8 @@ class ClientHandler extends Thread {
                     writer.println(tokens[1]);
                     writer.close();
                 }
+                this.clientSocket.close();
+                return;
             }
 
             // close client socket
