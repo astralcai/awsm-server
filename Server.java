@@ -66,14 +66,13 @@ class ClientHandler extends Thread {
 
             // listen for client input
             while ((input = in.readLine()) != null) {
+                System.out.println("Received: " + input);
                 String[] tokens = input.split(" ");
                 if (tokens[1].equals("new")) {
                     Server.filenames.put(tokens[0], "data/" + tokens[0] + "-" + tokens[2]);
                 } else {
-                    writer = new PrintWriter(new FileWriter(Server.filenames.get(tokens[0])));
-                    for (int i = 1; i < tokens.length; i++) {
-                        writer.println(tokens[i]);
-                    }
+                    writer = new PrintWriter(new FileWriter(Server.filenames.get(tokens[0]), true));
+                    writer.println(tokens[1]);
                     writer.close();
                 }
             }
