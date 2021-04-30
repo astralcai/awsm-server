@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
@@ -72,7 +73,7 @@ class ClientHandler extends Thread {
                     Server.filenames.put(tokens[0], "data/" + tokens[0] + "-" + tokens[2]);
                 } else if (tokens[1].equals("SampleReady!")) {
                     writer = new PrintWriter(new FileWriter("log.txt", true));
-                    writer.println("Sample Ready at Device " + tokens[0]);
+                    writer.println(LocalDateTime.now() + ", Sample Ready at Device " + tokens[0]);
                     writer.close();
                 } else {
                     writer = new PrintWriter(new FileWriter(Server.filenames.get(tokens[0]), true));
